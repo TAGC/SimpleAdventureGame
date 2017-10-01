@@ -66,7 +66,7 @@ namespace experiment
 
         private static bool TryQueryUserForChoice(IEnumerable<string> choiceIds, out string selectedChoiceId)
         {
-            var match = Regex.Match(Console.ReadLine(), "[a-z]", RegexOptions.IgnoreCase);
+            var match = Regex.Match(Console.ReadLine().ToLowerInvariant(), "[a-z]");
 
             if (!match.Success || !choiceIds.Contains(match.Value))
             {
