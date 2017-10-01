@@ -10,6 +10,11 @@ Play Da Game
 
 `dotnet run`
 
+Expand Da Game
+---
+
+I made it so that code and data have a clean separation; all the scenarios and choices and stuff are defined in JSON, and you can make the game more interesting by simply editing `game.json` without having to modify any code/recompile anything.
+
 Example of a game session
 ---
 
