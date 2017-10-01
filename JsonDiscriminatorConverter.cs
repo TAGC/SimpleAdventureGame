@@ -10,12 +10,12 @@ namespace experiment
     internal abstract class JsonDiscriminatorConverter<T> : CustomCreationConverter<T> where T : class
     {
         private readonly IDictionary<string, Type> _possibleTypes;
-        private readonly string _descriminatorField;
+        private readonly string _discriminatorField;
 
-        protected JsonDiscriminatorConverter(IEnumerable<Type> possibleTypes, string descriminatorField)
+        protected JsonDiscriminatorConverter(IEnumerable<Type> possibleTypes, string discriminatorField)
         {
             _possibleTypes = possibleTypes.ToDictionary(it => it.Name);
-            _descriminatorField = descriminatorField;
+            _discriminatorField = discriminatorField;
         }
 
         public override T Create(Type objectType) => throw new NotSupportedException();
@@ -31,7 +31,7 @@ namespace experiment
 
         private T Create(JToken jObject)
         {
-            string typeName = jObject.Value<string>(_descriminatorField) ??
+            string typeName = jObject.Value<string>(_discriminatorField) ??
                 throw new JsonSerializationException($"Discriminator field does not exist");
 
             if (_possibleTypes.TryGetValue(typeName, out var tType))
