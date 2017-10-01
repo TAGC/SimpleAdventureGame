@@ -1,3 +1,15 @@
+Build Da Game
+---
+
+`git clone https://github.com/TAGC/SimpleAdventureGame && cd SimpleAdventureGame && dotnet build`
+
+Play Da Game
+---
+
+(In project directory)
+
+`dotnet run`
+
 Example of a game session
 ---
 
