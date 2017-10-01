@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
+using experiment.Actions;
+using experiment.Preconditions;
 
 namespace experiment
 {
@@ -11,6 +13,7 @@ namespace experiment
         private readonly IList<Scenario> _scenarios;
         private readonly IList<Choice> _choices;
 
+        private GameState _currentGameState;
         private Scenario _currentScenario;
 
         public GameLoop(GameSetup setup)
@@ -23,6 +26,7 @@ namespace experiment
             _scenarios = setup.Scenarios.ToList();
             _choices = setup.Choices.ToList();
             _currentScenario = ScenarioLookup[setup.InitialScenarioId];
+            _currentGameState = new GameState();
         }
 
         public bool IsGameOver => _currentScenario.Endgame;
@@ -35,8 +39,10 @@ namespace experiment
 
             Console.WriteLine(_currentScenario.Description);
 
+            bool IsConditionSatisfiable(IPrecondition condition) => condition.ValidForGameState(_currentGameState);
             var availableChoices = from choice in _choices
                                    where choice.StartScenarioId == _currentScenario.Id
+                                   where choice.Preconditions.All(IsConditionSatisfiable)
                                    select choice;
 
             Debug.Assert(availableChoices.Count() <= 26, "Really shouldn't be this many choices");
@@ -48,6 +54,7 @@ namespace experiment
                 .ToDictionary(pair => pair.Item1, pair => pair.Item2);
 
             HandleChoice(GetUserChoice(userOptions));
+            Console.WriteLine();
         }
 
         private static Choice GetUserChoice(Dictionary<string, Choice> userOptions)
@@ -80,7 +87,10 @@ namespace experiment
 
         private void HandleChoice(Choice choice)
         {
+            GameState PerformAction(GameState gameState, IAction action) => action.UpdateGameState(gameState);
+
             Console.WriteLine(choice.Description);
+            _currentGameState = choice.Actions.Aggregate(_currentGameState, PerformAction);
             _currentScenario = ScenarioLookup[choice.EndScenarioId];
 
             if (IsGameOver)

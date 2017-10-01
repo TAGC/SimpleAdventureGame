@@ -1,6 +1,5 @@
 {
-    "scenarios": [
-        {
+    "scenarios": [{
             "id": "START_VILLAGE",
             "description": "You are in a village or some shit.",
             "endgame": false
@@ -16,16 +15,36 @@
             "endgame": true
         }
     ],
-    "choices": [
-        {
+    "choices": [{
             "startScenarioId": "START_VILLAGE",
             "endScenarioId": "START_VILLAGE",
-            "description": "You discover a shovel on the ground nearby. You pick it up."
+            "description": "You discover a shovel on the ground nearby. You pick it up.",
+            "preconditions": [{
+                "precondition": "DoesNotPossessItem",
+                "item": "shovel"
+            }],
+            "actions": [{
+                "action": "StoreItem",
+                "item": "shovel"
+            }]
         },
         {
             "startScenarioId": "START_VILLAGE",
             "endScenarioId": "DED",
-            "description": "You walk north for a bit. Oh no a skeleton found you."
+            "description": "You walk north for a bit. Oh no a skeleton found you. Unarmed as you are, he easily overpowers you.",
+            "preconditions": [{
+                "precondition": "DoesNotPossessItem",
+                "item": "shovel"
+            }]
+        },
+        {
+            "startScenarioId": "START_VILLAGE",
+            "endScenarioId": "ESCAPED",
+            "description": "You walk north for a bit. Oh no a skeleton found you. You whack him with the shovel, leaving him disoriented and giving you time to escape.",
+            "preconditions": [{
+                "precondition": "PossessesItem",
+                "item": "shovel"
+            }]
         },
         {
             "startScenarioId": "START_VILLAGE",
