@@ -19,6 +19,11 @@
     "choices": [
         {
             "startScenarioId": "START_VILLAGE",
+            "endScenarioId": "START_VILLAGE",
+            "description": "You discover a shovel on the ground nearby. You pick it up."
+        },
+        {
+            "startScenarioId": "START_VILLAGE",
             "endScenarioId": "DED",
             "description": "You walk north for a bit. Oh no a skeleton found you."
         },

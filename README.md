@@ -20,11 +20,15 @@ Example of a game session
 
 ```
 You are in a village or some shit.
-Pick a choice between a and b
+Pick a choice between a and c
+a
+You discover a shovel on the ground nearby. You pick it up.
+You are in a village or some shit.
+Pick a choice between a and c
 foo
 That is not a valid action. Please choose again.
 
-a
+b
 You walk north for a bit. Oh no a skeleton found you.
 You're dead!
 Thanks for playing!
