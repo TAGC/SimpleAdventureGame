@@ -1,5 +1,7 @@
 ﻿
 using System;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace experiment
 {
@@ -7,7 +9,8 @@ namespace experiment
     {
         static void Main(string[] args)
         {
-            var setup = CreateGameSetup();
+            // var setup = CreateGameSetup();
+            var setup = LoadGameSetup();
             var gameLoop = new GameLoop(setup);
 
             while (!gameLoop.IsGameOver)
@@ -15,6 +18,14 @@ namespace experiment
                 gameLoop.Next();
             }
         }
+
+        /// <remarks>
+        /// (NEW) Aight, this shows how to load the game setup from a JSON file.
+        /// <para></para>
+        /// Clean separation of code and data. With this approach you can expand the game
+        /// without having to modify and recompile the code.
+        /// </remarks>
+        static GameSetup LoadGameSetup() => JsonConvert.DeserializeObject<GameSetup>(File.ReadAllText("game.json"));
 
         /// <remarks>
         /// This is hardcoded here just as an example.

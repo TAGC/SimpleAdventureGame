@@ -1,0 +1,32 @@
+{
+    "scenarios": [
+        {
+            "id": "START_VILLAGE",
+            "description": "You are in a village or some shit.",
+            "endgame": false
+        },
+        {
+            "id": "DED",
+            "description": "You're dead!",
+            "endgame": true
+        },
+        {
+            "id": "ESCAPED",
+            "description": "You have escaped the scary village!",
+            "endgame": true
+        }
+    ],
+    "choices": [
+        {
+            "startScenarioId": "START_VILLAGE",
+            "endScenarioId": "DED",
+            "description": "You walk north for a bit. Oh no a skeleton found you."
+        },
+        {
+            "startScenarioId": "START_VILLAGE",
+            "endScenarioId": "ESCAPED",
+            "description": "You walk south for a bit. Neat, no trouble at all."
+        }
+    ],
+    "initialScenarioId": "START_VILLAGE"
+}

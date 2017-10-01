@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace experiment
 {
     public class GameSetup
     {
+        [JsonConstructor]
         public GameSetup(IEnumerable<Scenario> scenarios, IEnumerable<Choice> choices, string initialScenarioId)
         {
             if (scenarios == null)
